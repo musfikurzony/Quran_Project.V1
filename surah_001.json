@@ -1,0 +1,60 @@
+[
+  {
+    "word": "الْحَمْدُ",
+    "bangla_meaning": "প্রশংসা",
+    "root": "حَمِدَ",
+    "verb_forms": {
+      "past": "حَمِدَ",
+      "present": "يَحْمَدُ",
+      "imperative": "اِحْمَدْ",
+      "masdar": "حَمْدٌ"
+    },
+    "subject": null,
+    "object": null,
+    "case": "مرفوع",
+    "definite": true,
+    "plural_singular": {"plural": "الْحَمَدُونَ", "singular": "الْحَمْدُ"},
+    "gender": {"masculine": true, "feminine": "الْحَمْدَةُ"},
+    "notes": "মূল ক্রিয়ার রূপ ও তাজবিদ সংক্রান্ত বিস্তারিত।"
+  },
+  {
+    "word": "لِلَّهِ",
+    "bangla_meaning": "আল্লাহর জন্য",
+    "root": "لله",
+    "verb_forms": {},
+    "subject": null,
+    "object": null,
+    "case": "مجرور",
+    "definite": true,
+    "plural_singular": {},
+    "gender": {},
+    "notes": "مضاف-ইলাহি রূপ।"
+  },
+  {
+    "word": "رَبِّ",
+    "bangla_meaning": "প্রভু",
+    "root": "رَبَّ",
+    "verb_forms": {},
+    "subject": null,
+    "object": null,
+    "case": "مضاف",
+    "definite": false,
+    "plural_singular": {"singular":"رَبٌّ"},
+    "gender": {"masculine": true},
+    "notes": "মোলিক অর্থে প্রভু।"
+  },
+  {
+    "word": "الْعَالَمِينَ",
+    "bangla_meaning": "সকল জগৎ",
+    "root": "عَلَمَ",
+    "verb_forms": {},
+    "subject": null,
+    "object": null,
+    "case": "مجرور",
+    "definite": true,
+    "plural_singular": {"plural":"الْعَالَمِينَ","singular":"عَالَمٌ"},
+    "gender": {"masculine": true},
+    "notes": "বিশ্ব বা সকল জীবের অর্থে ব্যবহৃত।"
+  }
+  // বাকি শব্দগুলোও একইভাবে add করতে হবে
+]
