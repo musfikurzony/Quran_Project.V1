@@ -1,96 +1,68 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <title>Surah Al-Fatiha Word Analysis</title>
-  <style>
-    body { background-color:#001f3f; color:#fff; font-family: Arial, sans-serif; padding:20px; }
-    #ayat-header { text-align:center; font-size:24px; padding:10px; background:#002855; position:sticky; top:0; z-index:10; }
-    .word-box { 
-      background: linear-gradient(to right,#003366,#0055aa); 
-      border-radius:10px; padding:5px 10px; margin:3px; display:inline-block; cursor:pointer; 
-    }
-    #word-popup { 
-      display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); 
-      background:#003366; color:#fff; padding:20px; border-radius:15px; width:80%; max-height:70%; overflow:auto; z-index:100; 
-    }
-    #close-popup { cursor:pointer; float:right; font-size:18px; }
-    .verb-box { background:#0055aa; padding:5px; margin:3px; border-radius:5px; }
-  </style>
+<meta charset="UTF-8">
+<title>Surah Al-Fatiha Detailed Grammar</title>
+<style>
+body { background-color:#001f3f; color:#fff; font-family: Arial, sans-serif; padding:20px; }
+#ayat-header { text-align:center; font-size:24px; padding:10px; background:#002855; position:sticky; top:0; z-index:10; }
+.word-box { background: linear-gradient(to right,#003366,#0055aa); border-radius:10px; padding:5px 10px; margin:3px; display:inline-block; cursor:pointer; }
+#word-popup { display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#003366; color:#fff; padding:20px; border-radius:15px; width:80%; max-height:70%; overflow:auto; z-index:100; }
+#close-popup { cursor:pointer; float:right; font-size:18px; }
+.verb-box { background:#0055aa; padding:5px; margin:3px; border-radius:5px; }
+</style>
 </head>
 <body>
 
 <div id="ayat-header">﷽ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ الرَّحْمَٰنِ الرَّحِيمِ</div>
-
 <div id="words-container"></div>
-
 <div id="word-popup">
   <span id="close-popup">✖</span>
   <div id="word-details"></div>
 </div>
 
 <script>
-const surahJSON = [
-  {"word":"الْحَمْدُ","bangla_meaning":"প্রশংসা","root":"حَمِدَ","verb_forms":[{"tense":"Past (অতীত)","form":"حَمِدَ"},{"tense":"Present (বর্তমান)","form":"يَحْمَدُ"},{"tense":"Imperative (আদেশ)","form":"اِحْمَدْ"},{"tense":"Masdar / Noun","form":"حَمْدٌ"}],"case":"مرفوع","notes":"মূল ক্রিয়ার রূপ অনুযায়ী শব্দটি মখসুস হয়েছে; তাজবিদের নিয়ম অনুযায়ী উচ্চারণ। 'الْحَمْدُ' হচ্ছে মুদাফ-ইলাহি।"},
-  {"word":"لِلَّهِ","bangla_meaning":"আল্লাহর জন্য","root":"لله","verb_forms":[],"case":"مجرور","notes":"مضاف-ইলাহি রূপ। 'لِ' হলো preposition (এর জন্য), 'الله' হলো নির্দিষ্ট নাম।"},
-  {"word":"رَبِّ","bangla_meaning":"প্রভু","root":"رَبَّ","verb_forms":[],"case":"مضاف","notes":"مضاف রূপ। আল্লাহ সকল জগতের প্রভু।"},
-  {"word":"الْعَالَمِينَ","bangla_meaning":"সকল জগৎ","root":"عَلَمَ","verb_forms":[],"case":"مجرور","notes":"বহুবচন; নির্দিষ্ট আর্টিকেল 'ال' যুক্ত।"},
-  {"word":"الرَّحْمَٰنِ","bangla_meaning":"অতিশয় দয়ালু","root":"رَحِمَ","verb_forms":[],"case":"مضاف","notes":"صفات আল্লাহ; সর্বত্র দয়া এবং করুণা প্রদর্শনকারী।"},
-  {"word":"الرَّحِيمِ","bangla_meaning":"পরম করুণাময়","root":"رَحِمَ","verb_forms":[],"case":"مضاف","notes":"صفات আল্লাহ; বিশেষভাবে করুণাময়।"},
-  {"word":"مَالِكِ","bangla_meaning":"প্রভু/স্বামী","root":"مَلَكَ","verb_forms":[],"case":"مضاف","notes":"শাসক বা প্রভু।"},
-  {"word":"يَوْمِ","bangla_meaning":"দিন","root":"يَوْمٌ","verb_forms":[],"case":"مجرور","notes":"একদিন বা নির্দিষ্ট দিন।"},
-  {"word":"الدِّينِ","bangla_meaning":"পরিশোধ/দায়","root":"دِينٌ","verb_forms":[],"case":"مجرور","notes":"প্রত্যেককেই তার কাজের হিসাব দেওয়ার দিন।"},
-  {"word":"إِيَّاكَ","bangla_meaning":"আপনিই","root":"أَيَّ","verb_forms":[],"case":"مفعول","notes":"প্রত্যক্ষ বা বিশেষভাবে উদ্দেশ্য করা।"},
-  {"word":"نَعْبُدُ","bangla_meaning":"আমরা ইবাদত করি","root":"عَبَدَ","verb_forms":[{"tense":"Past","form":"عَبَدَ"},{"tense":"Present","form":"يَعْبُدُ"},{"tense":"Imperative","form":"اُعْبُدْ"},{"tense":"Masdar / Noun","form":"عِبَادَة"}],"case":"مرفوع","notes":"ক্রিয়া; প্রথম পুরুষ, একবচন।"},
-  {"word":"وَإِيَّاكَ","bangla_meaning":"এবং শুধুমাত্র আপনিই","root":"أَيَّ","verb_forms":[],"case":"مفعول","notes":"প্রত্যক্ষ উদ্দেশ্য নির্দেশ।"},
-  {"word":"نَسْتَعِينُ","bangla_meaning":"আমরা সাহায্য চাই","root":"عَوْنَ","verb_forms":[{"tense":"Past","form":"اسْتَعَانَ"},{"tense":"Present","form":"يَسْتَعِينُ"},{"tense":"Imperative","form":"اِسْتَعِنْ"},{"tense":"Masdar / Noun","form":"اسْتِعَانَة"}],"case":"مرفوع","notes":"ক্রিয়া; প্রথম পুরুষ, একবচন।"},
-  {"word":"اهْدِنَا","bangla_meaning":"আমাদের পথ দেখাও","root":"هَدَى","verb_forms":[{"tense":"Past","form":"هَدَى"},{"tense":"Present","form":"يَهْدِي"},{"tense":"Imperative","form":"اهْدِ"},{"tense":"Masdar / Noun","form":"هُدًى"}],"case":"مرفوع","notes":"আদেশকাল; দ্বিতীয় পুরুষ, একবচন।"},
-  {"word":"الصِّرَاطَ","bangla_meaning":"পথ","root":"صَرَطَ","verb_forms":[],"case":"مفعول","notes":"মুখ্য বিশেষ্য, নির্দিষ্ট আর্টিকেল 'ال' যুক্ত।"},
-  {"word":"المُسْتَقِيمَ","bangla_meaning":"সরাসরি / সঠিক পথ","root":"قَوَمَ","verb_forms":[],"case":"مضاف","notes":"صفات; সরাসরি এবং সঠিক।"},
-  {"word":"صِرَاطَ","bangla_meaning":"পথ","root":"صَرَطَ","verb_forms":[],"case":"مفعول","notes":"মুখ্য বিশেষ্য; বাকি context অনুসারে।"},
-  {"word":"الَّذِينَ","bangla_meaning":"যারা","root":"ذَ","verb_forms":[],"case":"مفعول","notes":"উদ্দেশ্য নির্দেশক।"},
-  {"word":"أَنْعَمْتَ","bangla_meaning":"আপনি অনুগ্রহ করেছেন","root":"نَعَمَ","verb_forms":[{"tense":"Past","form":"أَنْعَمَ"},{"tense":"Present","form":"يَنْعِمُ"},{"tense":"Imperative","form":"أَنْعِمْ"},{"tense":"Masdar / Noun","form":"نِعْمَة"}],"case":"ماضٍ","notes":"পুরুষ, একবচন, অতীত।"},
-  {"word":"عَلَيْهِمْ","bangla_meaning":"তাদের উপর","root":"عَلَى","verb_forms":[],"case":"مجرور","notes":"preposition + pronoun।"},
-  {"word":"غَيْرِ","bangla_meaning":"ছাড়া","root":"غَيْرِ","verb_forms":[],"case":"مجرور","notes":"exclusion indicator।"},
-  {"word":"الْمَغْضُوبِ","bangla_meaning":"অভিশপ্ত","root":"غَضِبَ","verb_forms":[{"tense":"Past","form":"غَضِبَ"},{"tense":"Present","form":"يَغْضَبُ"},{"tense":"Imperative","form":"اِغْضَبْ"},{"tense":"Masdar / Noun","form":"غَضَب"}],"case":"ماضٍ","notes":"ক্রিয়া-বিশেষ্য; অতীত কাল।"},
-  {"word":"عَلَيْهِمْ","bangla_meaning":"তাদের উপর","root":"عَلَى","verb_forms":[],"case":"مجرور","notes":"preposition + pronoun।"},
-  {"word":"وَلَا","bangla_meaning":"এবং না","root":"لَا","verb_forms":[],"case":"নেগেশন","notes":"নেগেটিভ কনজেকশন।"},
-  {"word":"الضَّالِّينَ","bangla_meaning":"পথভ্রষ্ট","root":"ضَلَّ","verb_forms":[{"tense":"Past","form":"ضَلَّ"},{"tense":"Present","form":"يَضِلُّ"},{"tense":"Imperative","form":"اِضْلِلْ"},{"tense":"Masdar / Noun","form":"ضَلَال"}],"case":"مجرور","notes":"পথভ্রষ্টদের নির্দেশ।"}
-];
-
 const container = document.getElementById('words-container');
 const popup = document.getElementById('word-popup');
 const wordDetails = document.getElementById('word-details');
 const closePopup = document.getElementById('close-popup');
 
+// surahJSON = [Paste the full JS variable above here]
+
 surahJSON.forEach(w => {
   let span = document.createElement('span');
   span.className = 'word-box';
   span.innerText = w.word;
-
+  
   span.onclick = () => {
     let verbHTML = '';
-    if(w.verb_forms.length > 0){
+    if(w.verb_forms && w.verb_forms.length>0){
       verbHTML = '<b>Verb Forms:</b><br>';
-      w.verb_forms.forEach(vf => {
+      w.verb_forms.forEach(vf=>{
         verbHTML += `<div class="verb-box">${vf.tense}: ${vf.form}</div>`;
       });
     }
     wordDetails.innerHTML = `
       <b>Word:</b> ${w.word}<br>
       <b>Bangla Meaning:</b> ${w.bangla_meaning}<br>
-      <b>Root:</b> ${w.root}<br>
-      ${verbHTML}
+      <b>Root:</b> ${w.root} (${w.root_meaning})<br>
+      <b>Part of Speech:</b> ${w.part_of_speech}<br>
+      <b>Noun Form:</b> ${w.noun_form}<br>
+      <b>Article:</b> ${w.article}<br>
       <b>Case:</b> ${w.case}<br>
+      <b>Gender:</b> ${w.gender}<br>
+      <b>Number:</b> ${w.number}<br>
+      <b>Mudaf Relation:</b> ${w.mudaf_relation}<br>
+      ${verbHTML}
       <b>Notes:</b> ${w.notes}
     `;
-    popup.style.display = 'block';
+    popup.style.display='block';
   };
-
+  
   container.appendChild(span);
 });
 
-closePopup.onclick = () => popup.style.display = 'none';
+closePopup.onclick = () => popup.style.display='none';
 </script>
 
 </body>
