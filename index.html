@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>Surah Al-Fatiha Word Analysis</title>
+  <style>
+    body { background-color:#001f3f; color:#fff; font-family: Arial, sans-serif; padding:20px; }
+    #ayat-header { text-align:center; font-size:24px; padding:10px; background:#002855; position:sticky; top:0; z-index:10; }
+    .word-box { 
+      background: linear-gradient(to right,#003366,#0055aa); 
+      border-radius:10px; padding:5px 10px; margin:3px; display:inline-block; cursor:pointer; 
+    }
+    #word-popup { 
+      display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); 
+      background:#003366; color:#fff; padding:20px; border-radius:15px; width:80%; max-height:70%; overflow:auto; z-index:100; 
+    }
+    #close-popup { cursor:pointer; float:right; font-size:18px; }
+  </style>
+</head>
+<body>
+
+<div id="ayat-header">﷽ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</div>
+
+<div id="words-container"></div>
+
+<div id="word-popup">
+  <span id="close-popup">✖</span>
+  <div id="word-details"></div>
+</div>
+
+<script>
+  // Load JSON file (assuming surah_001.json in same folder)
+  fetch('surah_001.json')
+    .then(response => response.json())
+    .then(surahJSON => {
+      const container = document.getElementById('words-container');
+      const popup = document.getElementById('word-popup');
+      const wordDetails = document.getElementById('word-details');
+      const closePopup = document.getElementById('close-popup');
+
+      surahJSON.forEach(w => {
+        let span = document.createElement('span');
+        span.className = 'word-box';
+        span.innerText = w.word;
+
+        span.onclick = () => {
+          wordDetails.innerHTML = `
+            <b>Word:</b> ${w.word}<br>
+            <b>Bangla Meaning:</b> ${w.bangla_meaning}<br>
+            <b>Root:</b> ${w.root}<br>
+            <b>Verb Forms:</b> ${JSON.stringify(w.verb_forms)}<br>
+            <b>Case:</b> ${w.case}<br>
+            <b>Notes:</b> ${w.notes}
+          `;
+          popup.style.display = 'block';
+        };
+
+        container.appendChild(span);
+      });
+
+      closePopup.onclick = () => popup.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>
