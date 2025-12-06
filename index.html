@@ -29,37 +29,68 @@
 </div>
 
 <script>
-  // Load JSON file (assuming surah_001.json in same folder)
-  fetch('surah_001.json')
-    .then(response => response.json())
-    .then(surahJSON => {
-      const container = document.getElementById('words-container');
-      const popup = document.getElementById('word-popup');
-      const wordDetails = document.getElementById('word-details');
-      const closePopup = document.getElementById('close-popup');
+  // Inline JSON data (no fetch, so tap works directly)
+  const surahJSON = [
+    {
+      "word": "الْحَمْدُ",
+      "bangla_meaning": "প্রশংসা",
+      "root": "حَمِدَ",
+      "verb_forms": {"past": "حَمِدَ","present": "يَحْمَدُ","imperative": "اِحْمَدْ","masdar": "حَمْدٌ"},
+      "case": "مرفوع",
+      "notes": "মূল ক্রিয়ার রূপ ও তাজবিদ সংক্রান্ত বিস্তারিত।"
+    },
+    {
+      "word": "لِلَّهِ",
+      "bangla_meaning": "আল্লাহর জন্য",
+      "root": "لله",
+      "verb_forms": {},
+      "case": "مجرور",
+      "notes": "مضاف-ইলাহি রূপ।"
+    },
+    {
+      "word": "رَبِّ",
+      "bangla_meaning": "প্রভু",
+      "root": "رَبَّ",
+      "verb_forms": {},
+      "case": "مضاف",
+      "notes": "মোলিক অর্থে প্রভু।"
+    },
+    {
+      "word": "الْعَالَمِينَ",
+      "bangla_meaning": "সকল জগৎ",
+      "root": "عَلَمَ",
+      "verb_forms": {},
+      "case": "مجرور",
+      "notes": "বিশ্ব বা সকল জীবের অর্থে ব্যবহৃত।"
+    }
+  ];
 
-      surahJSON.forEach(w => {
-        let span = document.createElement('span');
-        span.className = 'word-box';
-        span.innerText = w.word;
+  const container = document.getElementById('words-container');
+  const popup = document.getElementById('word-popup');
+  const wordDetails = document.getElementById('word-details');
+  const closePopup = document.getElementById('close-popup');
 
-        span.onclick = () => {
-          wordDetails.innerHTML = `
-            <b>Word:</b> ${w.word}<br>
-            <b>Bangla Meaning:</b> ${w.bangla_meaning}<br>
-            <b>Root:</b> ${w.root}<br>
-            <b>Verb Forms:</b> ${JSON.stringify(w.verb_forms)}<br>
-            <b>Case:</b> ${w.case}<br>
-            <b>Notes:</b> ${w.notes}
-          `;
-          popup.style.display = 'block';
-        };
+  surahJSON.forEach(w => {
+    let span = document.createElement('span');
+    span.className = 'word-box';
+    span.innerText = w.word;
 
-        container.appendChild(span);
-      });
+    span.onclick = () => {
+      wordDetails.innerHTML = `
+        <b>Word:</b> ${w.word}<br>
+        <b>Bangla Meaning:</b> ${w.bangla_meaning}<br>
+        <b>Root:</b> ${w.root}<br>
+        <b>Verb Forms:</b> ${JSON.stringify(w.verb_forms)}<br>
+        <b>Case:</b> ${w.case}<br>
+        <b>Notes:</b> ${w.notes}
+      `;
+      popup.style.display = 'block';
+    };
 
-      closePopup.onclick = () => popup.style.display = 'none';
-    });
+    container.appendChild(span);
+  });
+
+  closePopup.onclick = () => popup.style.display = 'none';
 </script>
 
 </body>
